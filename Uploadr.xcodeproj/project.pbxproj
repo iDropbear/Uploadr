@@ -1,0 +1,456 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F2B81EB913CD89BB000C287B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B81EB813CD89BB000C287B /* Cocoa.framework */; };
+		F2B81EC313CD89BB000C287B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2B81EC113CD89BB000C287B /* InfoPlist.strings */; };
+		F2B81EC613CD89BB000C287B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B81EC513CD89BB000C287B /* main.m */; };
+		F2B81EC913CD89BB000C287B /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = F2B81EC713CD89BB000C287B /* Credits.rtf */; };
+		F2B81ECC13CD89BB000C287B /* UploadrAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B81ECB13CD89BB000C287B /* UploadrAppDelegate.m */; };
+		F2B81ECF13CD89BB000C287B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2B81ECD13CD89BB000C287B /* MainMenu.xib */; };
+		F2B81ED613CD89BB000C287B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B81EB813CD89BB000C287B /* Cocoa.framework */; };
+		F2B81EDE13CD89BB000C287B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F2B81EDC13CD89BB000C287B /* InfoPlist.strings */; };
+		F2B81EE113CD89BB000C287B /* UploadrTests.h in Resources */ = {isa = PBXBuildFile; fileRef = F2B81EE013CD89BB000C287B /* UploadrTests.h */; };
+		F2B81EE313CD89BB000C287B /* UploadrTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B81EE213CD89BB000C287B /* UploadrTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F2B81ED713CD89BB000C287B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F2B81EAB13CD89BB000C287B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F2B81EB313CD89BB000C287B;
+			remoteInfo = Uploadr;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F2B81EB413CD89BB000C287B /* Uploadr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Uploadr.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2B81EB813CD89BB000C287B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		F2B81EBB13CD89BB000C287B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		F2B81EBC13CD89BB000C287B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F2B81EBD13CD89BB000C287B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F2B81EC013CD89BB000C287B /* Uploadr-Info.plist */ = {isa = PBXFileReference; path = "Uploadr-Info.plist"; sourceTree = "<group>"; };
+		F2B81EC213CD89BB000C287B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F2B81EC413CD89BB000C287B /* Uploadr-Prefix.pch */ = {isa = PBXFileReference; path = "Uploadr-Prefix.pch"; sourceTree = "<group>"; };
+		F2B81EC513CD89BB000C287B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F2B81EC813CD89BB000C287B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		F2B81ECA13CD89BB000C287B /* UploadrAppDelegate.h */ = {isa = PBXFileReference; path = UploadrAppDelegate.h; sourceTree = "<group>"; };
+		F2B81ECB13CD89BB000C287B /* UploadrAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadrAppDelegate.m; sourceTree = "<group>"; };
+		F2B81ECE13CD89BB000C287B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F2B81ED513CD89BB000C287B /* UploadrTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UploadrTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2B81EDB13CD89BB000C287B /* UploadrTests-Info.plist */ = {isa = PBXFileReference; path = "UploadrTests-Info.plist"; sourceTree = "<group>"; };
+		F2B81EDD13CD89BB000C287B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F2B81EDF13CD89BB000C287B /* UploadrTests-Prefix.pch */ = {isa = PBXFileReference; path = "UploadrTests-Prefix.pch"; sourceTree = "<group>"; };
+		F2B81EE013CD89BB000C287B /* UploadrTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadrTests.h; sourceTree = "<group>"; };
+		F2B81EE213CD89BB000C287B /* UploadrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadrTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F2B81EB113CD89BB000C287B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2B81EB913CD89BB000C287B /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2B81ED113CD89BB000C287B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2B81ED613CD89BB000C287B /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F2B81EA913CD89BB000C287B = {
+			isa = PBXGroup;
+			children = (
+				F2B81EBE13CD89BB000C287B /* Uploadr */,
+				F2B81ED913CD89BB000C287B /* UploadrTests */,
+				F2B81EB713CD89BB000C287B /* Frameworks */,
+				F2B81EB513CD89BB000C287B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F2B81EB513CD89BB000C287B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2B81EB413CD89BB000C287B /* Uploadr.app */,
+				F2B81ED513CD89BB000C287B /* UploadrTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F2B81EB713CD89BB000C287B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2B81EB813CD89BB000C287B /* Cocoa.framework */,
+				F2B81EBA13CD89BB000C287B /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F2B81EBA13CD89BB000C287B /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F2B81EBB13CD89BB000C287B /* AppKit.framework */,
+				F2B81EBC13CD89BB000C287B /* CoreData.framework */,
+				F2B81EBD13CD89BB000C287B /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		F2B81EBE13CD89BB000C287B /* Uploadr */ = {
+			isa = PBXGroup;
+			children = (
+				F2B81ECA13CD89BB000C287B /* UploadrAppDelegate.h */,
+				F2B81ECB13CD89BB000C287B /* UploadrAppDelegate.m */,
+				F2B81ECD13CD89BB000C287B /* MainMenu.xib */,
+				F2B81EBF13CD89BB000C287B /* Supporting Files */,
+			);
+			path = Uploadr;
+			sourceTree = "<group>";
+		};
+		F2B81EBF13CD89BB000C287B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F2B81EC013CD89BB000C287B /* Uploadr-Info.plist */,
+				F2B81EC113CD89BB000C287B /* InfoPlist.strings */,
+				F2B81EC413CD89BB000C287B /* Uploadr-Prefix.pch */,
+				F2B81EC513CD89BB000C287B /* main.m */,
+				F2B81EC713CD89BB000C287B /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F2B81ED913CD89BB000C287B /* UploadrTests */ = {
+			isa = PBXGroup;
+			children = (
+				F2B81EE013CD89BB000C287B /* UploadrTests.h */,
+				F2B81EE213CD89BB000C287B /* UploadrTests.m */,
+				F2B81EDA13CD89BB000C287B /* Supporting Files */,
+			);
+			path = UploadrTests;
+			sourceTree = "<group>";
+		};
+		F2B81EDA13CD89BB000C287B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F2B81EDB13CD89BB000C287B /* UploadrTests-Info.plist */,
+				F2B81EDC13CD89BB000C287B /* InfoPlist.strings */,
+				F2B81EDF13CD89BB000C287B /* UploadrTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F2B81EB313CD89BB000C287B /* Uploadr */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2B81EE613CD89BB000C287B /* Build configuration list for PBXNativeTarget "Uploadr" */;
+			buildPhases = (
+				F2B81EB013CD89BB000C287B /* Sources */,
+				F2B81EB113CD89BB000C287B /* Frameworks */,
+				F2B81EB213CD89BB000C287B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Uploadr;
+			productName = Uploadr;
+			productReference = F2B81EB413CD89BB000C287B /* Uploadr.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F2B81ED413CD89BB000C287B /* UploadrTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2B81EE913CD89BB000C287B /* Build configuration list for PBXNativeTarget "UploadrTests" */;
+			buildPhases = (
+				F2B81ED013CD89BB000C287B /* Sources */,
+				F2B81ED113CD89BB000C287B /* Frameworks */,
+				F2B81ED213CD89BB000C287B /* Resources */,
+				F2B81ED313CD89BB000C287B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2B81ED813CD89BB000C287B /* PBXTargetDependency */,
+			);
+			name = UploadrTests;
+			productName = UploadrTests;
+			productReference = F2B81ED513CD89BB000C287B /* UploadrTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F2B81EAB13CD89BB000C287B /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = F2B81EAE13CD89BB000C287B /* Build configuration list for PBXProject "Uploadr" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F2B81EA913CD89BB000C287B;
+			productRefGroup = F2B81EB513CD89BB000C287B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F2B81EB313CD89BB000C287B /* Uploadr */,
+				F2B81ED413CD89BB000C287B /* UploadrTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F2B81EB213CD89BB000C287B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2B81EC313CD89BB000C287B /* InfoPlist.strings in Resources */,
+				F2B81EC913CD89BB000C287B /* Credits.rtf in Resources */,
+				F2B81ECF13CD89BB000C287B /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2B81ED213CD89BB000C287B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2B81EDE13CD89BB000C287B /* InfoPlist.strings in Resources */,
+				F2B81EE113CD89BB000C287B /* UploadrTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F2B81ED313CD89BB000C287B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F2B81EB013CD89BB000C287B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2B81EC613CD89BB000C287B /* main.m in Sources */,
+				F2B81ECC13CD89BB000C287B /* UploadrAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F2B81ED013CD89BB000C287B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2B81EE313CD89BB000C287B /* UploadrTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F2B81ED813CD89BB000C287B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F2B81EB313CD89BB000C287B /* Uploadr */;
+			targetProxy = F2B81ED713CD89BB000C287B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F2B81EC113CD89BB000C287B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2B81EC213CD89BB000C287B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F2B81EC713CD89BB000C287B /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2B81EC813CD89BB000C287B /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		F2B81ECD13CD89BB000C287B /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2B81ECE13CD89BB000C287B /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F2B81EDC13CD89BB000C287B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F2B81EDD13CD89BB000C287B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F2B81EE413CD89BB000C287B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F2B81EE513CD89BB000C287B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F2B81EE713CD89BB000C287B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Uploadr/Uploadr-Prefix.pch";
+				INFOPLIST_FILE = "Uploadr/Uploadr-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F2B81EE813CD89BB000C287B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Uploadr/Uploadr-Prefix.pch";
+				INFOPLIST_FILE = "Uploadr/Uploadr-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		F2B81EEA13CD89BB000C287B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Uploadr.app/Contents/MacOS/Uploadr";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UploadrTests/UploadrTests-Prefix.pch";
+				INFOPLIST_FILE = "UploadrTests/UploadrTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		F2B81EEB13CD89BB000C287B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Uploadr.app/Contents/MacOS/Uploadr";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "UploadrTests/UploadrTests-Prefix.pch";
+				INFOPLIST_FILE = "UploadrTests/UploadrTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F2B81EAE13CD89BB000C287B /* Build configuration list for PBXProject "Uploadr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2B81EE413CD89BB000C287B /* Debug */,
+				F2B81EE513CD89BB000C287B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2B81EE613CD89BB000C287B /* Build configuration list for PBXNativeTarget "Uploadr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2B81EE713CD89BB000C287B /* Debug */,
+				F2B81EE813CD89BB000C287B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F2B81EE913CD89BB000C287B /* Build configuration list for PBXNativeTarget "UploadrTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F2B81EEA13CD89BB000C287B /* Debug */,
+				F2B81EEB13CD89BB000C287B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F2B81EAB13CD89BB000C287B /* Project object */;
+}
