@@ -7,12 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "OAuthConsumer/OAuthConsumer.h"
+#import "BBTumblrDelegate.h"
 
-@interface UploadrAppDelegate : NSObject <NSApplicationDelegate> {
+@interface UploadrAppDelegate : NSObject <NSApplicationDelegate,BBTumblrDelegate> {
 @private
     NSWindow *window;
+    
+    NSMutableData *receivedData;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+
+- (void)requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
 
 @end
