@@ -29,8 +29,8 @@ static BBTumblr *shared = nil;
 - (BBTumblrConnection *)_transactionForConnection:(NSURLConnection *)connection;
 - (BBTumblrConnection *)_transactionForConnectionIdentifier:(NSString *)connectionIdentifier;
 
-- (BOOL)_generateNewPostRequest:(NSMutableArray *)parameters;
-- (BOOL)_generateReblogPostRequest:(NSMutableArray *)parameters;
+- (BOOL)_generateNewPostRequest:(NSMutableArray *)parameters Post:(BBTumblrPost *)post;
+- (BOOL)_generateReblogPostRequest:(NSMutableArray *)parameters Post:(BBTumblrPost *)post;
 
 - (void)retrieveAvatarThread:(id)object;
 @end
@@ -40,8 +40,6 @@ static BBTumblr *shared = nil;
 @implementation BBTumblr
 
 @synthesize delegate=_delegate, consumer=_consumer, token=_token, hostname=_hostname, transactions=_transactions;
-
-@synthesize type=_type, tags=_tags, tweet=_tweet, markdown=_markdown, title=_title, body=_body, caption=_caption, link=_link, source=_source, data=_data, quote=_quote, URL=_URL, description=_description, conversation=_conversation, externalURL=_externalURL, embed=_embed;
 
 + (BBTumblr *)sharedInstance
 {
@@ -61,34 +59,96 @@ static BBTumblr *shared = nil;
     return self;
 }
 
-- (BOOL)isReady
+- (void)dealloc
+{
+    __RELEASE(_consumer);
+    __RELEASE(_token);
+    __RELEASE(_hostname);
+    __RELEASE(_transactions);
+    
+    [super dealloc];
+}
+
+- (BOOL)isReadyFor:(BBTumblrRequestType)type
 {
     BOOL ready = NO;
     
-    if (self.type == BBTumblrPostText)
-        ready = (self.body != nil)?YES:NO;
-    else if (self.type == BBTumblrPostPhoto)
-        ready = ((self.source != nil) || (self.data != nil))?YES:NO;
-    else if (self.type == BBTumblrPostQuote)
-        ready = (self.quote != nil)?YES:NO;
-    else if (self.type == BBTumblrPostLink)
-        ready = (self.URL != nil)?YES:NO;
-    else if (self.type == BBTumblrPostChat)
-        ready = (self.conversation != nil)?YES:NO;
-    else if (self.type == BBTumblrPostAudio)
-        ready = ((self.externalURL != nil) || (self.data != nil))?YES:NO;
-    else if (self.type == BBTumblrPostVideo)
-        ready = ((self.embed != nil) || (self.data != nil))?YES:NO;
-    
-    ready = (ready && (self.consumer != nil) && (self.token != nil) && (self.hostname != nil));
-    
+    if (type == BBTumblrAvatar)
+    {
+        ready = (self.hostname != nil)?YES:NO;
+    }else
+    if (type == BBTumblrBlogInfo)
+    {
+        ready = (self.hostname != nil)?YES:NO;
+    }else
+    if (type == BBTumblrRequestToken)
+    {
+        ready = (self.consumer != nil)?YES:NO;
+    }else
+    if (type == BBTumblrNewPost)
+    {
+        ready = ((self.consumer != nil) && (self.token != nil) && (self.hostname != nil))?YES:NO;
+    }else
+    if (type == BBTumblrReblog)
+    {
+        ready = ((self.consumer != nil) && (self.token != nil) && (self.hostname != nil))?YES:NO;
+    }
+        
     return ready;
+}
+
+#pragma mark -
+#pragma mark Request Auth Token
+- (NSString *)requestTokenWithEmail:(NSString *)email Password:(NSString *)password
+{
+    if ((email == nil) || ([email length] <= 0) || (password == nil) || ([password length] <= 0))
+    {
+        NSLog( @"Email and/or Password Not Entered" );
+        return nil;
+    }
+    if (![self isReadyFor:BBTumblrRequestToken])
+    {
+        NSLog( @"No Consumer Key" );
+        return nil;
+    }
+    
+    NSURL *url = [NSURL URLWithString:@"https://www.tumblr.com/oauth/access_token"];
+    
+    OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url
+                                                                   consumer:self.consumer
+                                                                      token:nil   // we don't have a Token yet
+                                                                      realm:nil   // our service provider doesn't specify a realm
+                                                          signatureProvider:nil]; // use the default method, HMAC-SHA1
+    
+    [request setHTTPMethod:@"POST"];
+    
+    [request setParameters:[NSArray arrayWithObjects:
+                            [OARequestParameter requestParameter:@"x_auth_mode" value:@"client_auth"],
+                            [OARequestParameter requestParameter:@"x_auth_username" value:email],
+                            [OARequestParameter requestParameter:@"x_auth_password" value:password],
+                            nil]];
+    
+    [request prepare];
+    
+    BBTumblrConnection *conn = [BBTumblrConnection tumblrConnection];
+    
+    conn.request = request;
+    conn.requestType = BBTumblrRequestToken;
+    conn.identifier = [NSString uniqueString];
+    
+    return [self _createAndStartConnectionForTransaction:conn];
 }
 
 #pragma mark -
 #pragma mark Blog Avatar
 - (NSString *)requestBlogAvatar:(NSString *)blog withSize:(BBTumblrAvatarSize)size
 {
+    if (![self isReadyFor:BBTumblrAvatar])
+    {
+        NSLog( @"Avatar Request Error" );
+        return nil;
+    }
+    
     NSString *blogName;
     if (blog == nil)
         blogName = self.hostname;
@@ -114,6 +174,12 @@ static BBTumblr *shared = nil;
 #pragma mark Blog Info
 - (NSString *)requestBlogInfo:(NSString *)blog
 {
+    if (![self isReadyFor:BBTumblrBlogInfo])
+    {
+        NSLog( @"Blog Request Error" );
+        return nil;
+    }
+    
     NSString *blogName;
     if (blog == nil)
         blogName = self.hostname;
@@ -135,49 +201,57 @@ static BBTumblr *shared = nil;
 
 #pragma mark -
 #pragma mark Create new Post
-- (NSString *)createNewPost
+- (NSString *)createPost:(BBTumblrPost *)post
 {
-    if (![self isReady])
+    if ((![self isReadyFor:post.requestType]) || (![post isReady]) )
     {
-        NSLog( @"Not Ready" );
+        NSLog( @"Request\\Post Not Ready" );
         return nil;
     }
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:URL_POST,self.hostname]];
+    OAMutableURLRequest *request;
+    BBTumblrConnection *conn = [BBTumblrConnection tumblrConnection];
     
-    OAMutableURLRequest *request = [[OAMutableURLRequest alloc] initWithURL:url 
-                                                                   consumer:self.consumer 
-                                                                      token:self.token 
-                                                                      realm:nil 
-                                                          signatureProvider:nil];
-    [request setHTTPMethod:@"POST"];
-    
-    NSMutableArray *param = [NSMutableArray new];
-    // --- Type
-    [param addObject:[OARequestParameter requestParameter:@"type" value:[BBTumblrVars postTypeToString:self.type]]];
-    
-    // --- Tags
-    NSMutableString *strTags = [NSMutableString stringWithString:@"Uploadr"];
-    if (self.tags)
-        [strTags appendFormat:@",%@",[self.tags componentsJoinedByString:@","]];
-    [param addObject:[OARequestParameter requestParameter:@"tags" value:strTags]];
-    
-    // --- Date
-    NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
-    [param addObject:[OARequestParameter requestParameter:@"date" value:[dateFormat stringFromDate:[NSDate date]]]];
-    
-    [self _generateNewPostRequest:param];
-    
-    [request setParameters:param];
+    if (post.requestType == BBTumblrNewPost)
+    {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:URL_POST,self.hostname]];
+        
+        request = [[OAMutableURLRequest alloc] initWithURL:url 
+                                                  consumer:self.consumer 
+                                                     token:self.token 
+                                                     realm:nil 
+                                         signatureProvider:nil];
+        
+        [request setHTTPMethod:@"POST"];
+        
+        NSMutableArray *param = [NSMutableArray new];
+        // --- Type
+        [param addObject:[OARequestParameter requestParameter:@"type" value:[BBTumblrVars postTypeToString:post.type]]];
+        
+        // --- Tags
+        NSMutableString *strTags = [NSMutableString stringWithString:@"Uploadr"];
+        if (post.tags)
+            [strTags appendFormat:@",%@",[post.tags componentsJoinedByString:@","]];
+        [param addObject:[OARequestParameter requestParameter:@"tags" value:strTags]];
+        
+        // --- Date
+        NSDateFormatter *dateFormat = [[[NSDateFormatter alloc] init] autorelease];
+        [param addObject:[OARequestParameter requestParameter:@"date" value:[dateFormat stringFromDate:[NSDate date]]]];
+        
+        [self _generateNewPostRequest:param Post:post];
+        
+        [request setParameters:param];
+        
+        conn.requestType = BBTumblrNewPost;
+    }
     
     [request prepare];
     
-    BBTumblrConnection *conn = [BBTumblrConnection tumblrConnection];
     conn.request = request;
-    conn.requestType = BBTumblrNewPost;
     conn.identifier = [NSString uniqueString];
     
     return [self _createAndStartConnectionForTransaction:conn];
+    
 }
 
 #pragma mark -
@@ -189,22 +263,23 @@ static BBTumblr *shared = nil;
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {    
+    [self _transactionForConnection:connection].wasSuccessful = NO;
+    [self _transactionForConnection:connection].error = [error retain];
+    
     if ([self.delegate respondsToSelector:@selector(tumblrRequest:didFailWithError:)])
-    {
-        BBError *_error = [BBError errorWithDescription:[error domain] 
-                                                andCode:[error code] 
-                                               andClass:[self class]];
-        [self.delegate tumblrRequest:self didFailWithError:_error];
+    {        
+        [self.delegate tumblrRequest:[self _transactionForConnection:connection].identifier didFailWithError:error];
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     [self _transactionForConnection:connection].response = [response retain];
+    [self _transactionForConnection:connection].wasSuccessful = ([(NSHTTPURLResponse *)response statusCode]< 400)?YES:NO;
     
     if ([self.delegate respondsToSelector:@selector(tumblrRequest:receivedResponse:)])
     {
-        [self.delegate tumblrRequest:self receivedResponse:response];
+        [self.delegate tumblrRequest:[self _transactionForConnection:connection].identifier receivedResponse:response];
     }
 }
 
@@ -213,7 +288,7 @@ static BBTumblr *shared = nil;
     if ([self.delegate respondsToSelector:@selector(tumblrRequest:percentageSent:)])
     {
         CGFloat percent = (totalBytesExpectedToWrite/totalBytesWritten);
-        [self.delegate tumblrRequest:self percentageSent:percent];
+        [self.delegate tumblrRequest:[self _transactionForConnection:connection].identifier percentageSent:percent];
     }
 }
 
@@ -229,7 +304,9 @@ static BBTumblr *shared = nil;
                 
         NSURL *url = [NSURL URLWithString:[[dict valueForKey:@"response"] valueForKey:@"avatar_url"]];
         
-        [NSThread detachNewThreadSelector:@selector(retrieveAvatarThread:) toTarget:self withObject:url];
+        NSArray *array = [NSArray arrayWithObjects:url,conn.identifier,nil];
+        
+        [NSThread detachNewThreadSelector:@selector(retrieveAvatarThread:) toTarget:self withObject:array];
         return;
     }else
     if (conn.requestType == BBTumblrBlogInfo)
@@ -240,7 +317,37 @@ static BBTumblr *shared = nil;
         
         if ([self.delegate respondsToSelector:@selector(tumblrRequest:receivedBlogInfo:)])
         {
-            [self.delegate tumblrRequest:self receivedBlogInfo:dict];
+            [self.delegate tumblrRequest:conn.identifier receivedBlogInfo:dict];
+        }
+    }else
+    if (conn.requestType == BBTumblrNewPost)
+    {
+        NSString *string = [NSString stringWithData:conn.receivedData encoding:NSUTF8StringEncoding];
+        
+        NSDictionary *dict = [string JSONValue];
+        
+        NSLog( @"DICT: %@", dict );
+        
+        if ([self.delegate respondsToSelector:@selector(tumblrRequest:newPostCreated:)])
+        {
+            NSInteger postID = [[[dict valueForKey:@"response"] valueForKey:@"id"] integerValue];
+                        
+            [self.delegate tumblrRequest:conn.identifier newPostCreated:postID];
+        }
+    }else
+    if (conn.requestType == BBTumblrRequestToken)
+    {
+        NSString *string = [NSString stringWithData:conn.receivedData encoding:NSUTF8StringEncoding];
+        
+        OAToken *token = [[OAToken alloc] initWithHTTPResponseBody:string];
+        
+        [self setToken:token];
+        
+        [token release];
+        
+        if ([self.delegate respondsToSelector:@selector(tumblrRequestUserAuthenticated:)])
+        {
+            [self.delegate tumblrRequestUserAuthenticated:conn.identifier];
         }
     }
     
@@ -253,9 +360,7 @@ static BBTumblr *shared = nil;
     BBTumblrConnection *conn = [self _transactionForConnection:connection];
         
     NSURLRequest *req = request;
-    
-    NSLog( @"%@", [req allHTTPHeaderFields] );
-    
+        
     if (conn.requestType == BBTumblrAvatar)
     {
         NSLog( @"Reject redirect" );
@@ -314,87 +419,100 @@ static BBTumblr *shared = nil;
     return [resultSet anyObject];
 }
 
-- (BOOL)_generateNewPostRequest:(NSMutableArray *)parameters
+- (BOOL)_generateNewPostRequest:(NSMutableArray *)parameters Post:(BBTumblrPost *)post
 {
-    if (self.type == BBTumblrPostText)
+    if (post.type == BBTumblrPostText)
     {        
-        if (self.title)
-            [parameters addObject:[OARequestParameter requestParameter:@"title" value:self.title]];
+        if (post.title)
+            [parameters addObject:[OARequestParameter requestParameter:@"title" value:post.title]];
         
-        [parameters addObject:[OARequestParameter requestParameter:@"body" value:self.body]];
+        [parameters addObject:[OARequestParameter requestParameter:@"body" value:post.body]];
     }
     
-    if (self.type == BBTumblrPostPhoto)
+    if (post.type == BBTumblrPostPhoto)
     {
-        if (self.caption)
-            [parameters addObject:[OARequestParameter requestParameter:@"caption" value:self.caption]];
+        if (post.caption)
+            [parameters addObject:[OARequestParameter requestParameter:@"caption" value:post.caption]];
         
-        if (self.link)
-            [parameters addObject:[OARequestParameter requestParameter:@"link" value:self.link]];
+        if (post.link)
+            [parameters addObject:[OARequestParameter requestParameter:@"link" value:post.link]];
         
-        if (self.source)
-            [parameters addObject:[OARequestParameter requestParameter:@"source" value:self.source]];
+        if (post.source)
+            [parameters addObject:[OARequestParameter requestParameter:@"source" value:post.source]];
         else
         {
-            NSString *dateString = [NSString stringWithData:self.data encoding:NSUTF8StringEncoding];
+            NSString *dateString = [NSString stringWithData:post.data encoding:NSUTF8StringEncoding];
             [parameters addObject:[OARequestParameter requestParameter:@"data" value:dateString]];
         }
     }
     
-    if (self.type == BBTumblrPostQuote)
+    if (post.type == BBTumblrPostQuote)
     {
-        [parameters addObject:[OARequestParameter requestParameter:@"quote" value:self.quote]];
+        [parameters addObject:[OARequestParameter requestParameter:@"quote" value:post.quote]];
         
-        if (self.source)
-            [parameters addObject:[OARequestParameter requestParameter:@"source" value:self.source]];
+        if (post.source)
+            [parameters addObject:[OARequestParameter requestParameter:@"source" value:post.source]];
     }
     
-    if (self.type == BBTumblrPostLink)
+    if (post.type == BBTumblrPostLink)
     {
-        if (self.title)
-            [parameters addObject:[OARequestParameter requestParameter:@"title" value:self.title]];
+        if (post.title)
+            [parameters addObject:[OARequestParameter requestParameter:@"title" value:post.title]];
         
-        [parameters addObject:[OARequestParameter requestParameter:@"url" value:self.URL]];
+        [parameters addObject:[OARequestParameter requestParameter:@"url" value:post.URL]];
         
-        if (self.description)
-            [parameters addObject:[OARequestParameter requestParameter:@"description" value:self.description]];
+        if (post.description)
+            [parameters addObject:[OARequestParameter requestParameter:@"description" value:post.description]];
     }
     
-    if (self.type == BBTumblrPostChat)
+    if (post.type == BBTumblrPostChat)
     {
-        if (self.title)
-            [parameters addObject:[OARequestParameter requestParameter:@"title" value:self.title]];
+        if (post.title)
+            [parameters addObject:[OARequestParameter requestParameter:@"title" value:post.title]];
         
-        [parameters addObject:[OARequestParameter requestParameter:@"conversation" value:self.conversation]];
+        [parameters addObject:[OARequestParameter requestParameter:@"conversation" value:post.conversation]];
     }
     
-    if (self.type == BBTumblrPostAudio)
+    if (post.type == BBTumblrPostAudio)
     {
-        if (self.caption)
-            [parameters addObject:[OARequestParameter requestParameter:@"caption" value:self.caption]];
+        if (post.caption)
+            [parameters addObject:[OARequestParameter requestParameter:@"caption" value:post.caption]];
         
-        if (self.externalURL)
-            [parameters addObject:[OARequestParameter requestParameter:@"external_url" value:self.externalURL]];
+        if (post.externalURL)
+            [parameters addObject:[OARequestParameter requestParameter:@"external_url" value:post.externalURL]];
         else
         {
-            NSString *dateString = [NSString stringWithData:self.data encoding:NSUTF8StringEncoding];
+            NSString *dateString = [NSString stringWithData:post.data encoding:NSUTF8StringEncoding];
             [parameters addObject:[OARequestParameter requestParameter:@"data" value:dateString]];
         }
     }
     
-    if (self.type == BBTumblrPostVideo)
+    if (post.type == BBTumblrPostVideo)
     {
-        if (self.caption)
-            [parameters addObject:[OARequestParameter requestParameter:@"caption" value:self.caption]];
+        if (post.caption)
+            [parameters addObject:[OARequestParameter requestParameter:@"caption" value:post.caption]];
         
-        if (self.embed)
-            [parameters addObject:[OARequestParameter requestParameter:@"embed" value:self.externalURL]];
+        if (post.embed)
+            [parameters addObject:[OARequestParameter requestParameter:@"embed" value:post.externalURL]];
         else
         {
-            NSString *dateString = [NSString stringWithData:self.data encoding:NSUTF8StringEncoding];
+            NSString *dateString = [NSString stringWithData:post.data encoding:NSUTF8StringEncoding];
             [parameters addObject:[OARequestParameter requestParameter:@"data" value:dateString]];
         }
     }
+    
+    return YES;
+}
+
+- (BOOL)_generateReblogPostRequest:(NSMutableArray *)parameters Post:(BBTumblrPost *)post
+{
+    [parameters addObject:[OARequestParameter requestParameter:@"reblog_key" value:post.reblogKey]];
+    
+    if (post.postID)
+        [parameters addObject:[OARequestParameter requestParameter:@"id" value:[NSString stringWithFormat:@"%lu",post.postID]]];
+    
+    if (post.comment)
+        [parameters addObject:[OARequestParameter requestParameter:@"comment" value:post.comment]];
     
     return YES;
 }
@@ -404,13 +522,13 @@ static BBTumblr *shared = nil;
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
-    NSData *data = [[[NSData alloc] initWithContentsOfURL:object] autorelease];
+    NSData *data = [[[NSData alloc] initWithContentsOfURL:[object objectAtIndex:0]] autorelease];
     
     NSImage *image = [[[NSImage alloc] initWithData:data] autorelease];
     
     if ([self.delegate respondsToSelector:@selector(tumblrRequest:receivedAvatar:)])
     {
-        [self.delegate tumblrRequest:self receivedAvatar:image];
+        [self.delegate tumblrRequest:[object objectAtIndex:1] receivedAvatar:image];
     }
     
     [pool drain];

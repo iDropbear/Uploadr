@@ -10,17 +10,7 @@
 
 @implementation BBError
 
-@synthesize description=_description, code=_code, ownerClass=_class;
+@synthesize description=_description, ownerClass=_class;
 
-+ (BBError *)errorWithDescription:(NSString *)desc andCode:(NSInteger)code andClass:(Class)classs
-{
-    BBError *error = [[[self class] alloc] init];
-    
-    [error setDescription:desc];
-    [error setCode:code];
-    [error setOwnerClass:classs];
-    
-    return [error autorelease];
-}
 
 @end

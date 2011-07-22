@@ -8,15 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
-@class BBTumblr, BBTumblrRequest, BBError;
+@class BBTumblr, BBTumblrRequest;
 
 @protocol BBTumblrDelegate <NSObject>
 
 @optional
-- (void)tumblrRequest:(BBTumblr *)tumblr didFailWithError:(BBError *)error;
-- (void)tumblrRequest:(BBTumblr *)tumblr receivedAvatar:(NSImage *)avatar;
-- (void)tumblrRequest:(BBTumblr *)tumblr receivedBlogInfo:(NSDictionary *)dictionary;
-- (void)tumblrRequest:(BBTumblr *)tumblr receivedResponse:(NSURLResponse *)response;
-- (void)tumblrRequest:(BBTumblr *)tumblr percentageSent:(CGFloat)percent;
+- (void)tumblrRequest:(NSString *)identifier didFailWithError:(NSError *)error;
+- (void)tumblrRequest:(NSString *)identifier receivedResponse:(NSURLResponse *)response;
+- (void)tumblrRequest:(NSString *)identifier percentageSent:(CGFloat)percent;
+
+- (void)tumblrRequest:(NSString *)identifier receivedAvatar:(NSImage *)avatar;
+
+- (void)tumblrRequest:(NSString *)identifier receivedBlogInfo:(NSDictionary *)dictionary;
+
+- (void)tumblrRequest:(NSString *)identifier newPostCreated:(NSInteger)postID;
+
+- (void)tumblrRequestUserAuthenticated:(NSString *)identifier;
 
 @end

@@ -19,10 +19,10 @@
 		F29C931913D116F8009CDA91 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C930B13D116F8009CDA91 /* SBJsonTokeniser.m */; };
 		F29C931A13D116F8009CDA91 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C930D13D116F8009CDA91 /* SBJsonUTF8Stream.m */; };
 		F29C931B13D116F8009CDA91 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C930F13D116F8009CDA91 /* SBJsonWriter.m */; };
-		F29C931E13D11739009CDA91 /* BBTumblrRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C931D13D11739009CDA91 /* BBTumblrRequest.m */; };
 		F29C932113D13773009CDA91 /* BBTumblrVars.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C932013D13773009CDA91 /* BBTumblrVars.m */; };
 		F29C932413D146D2009CDA91 /* NSString+Tumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = F29C932313D146D2009CDA91 /* NSString+Tumblr.m */; };
 		F29CEB4313D27744004936E3 /* BBError.m in Sources */ = {isa = PBXBuildFile; fileRef = F29CEB4213D27744004936E3 /* BBError.m */; };
+		F2A98E4913D4312400718424 /* BBTumblrPost.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A98E4813D4312300718424 /* BBTumblrPost.m */; };
 		F2A9A41213D2F044009A36D0 /* BBTumblrConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A9A41113D2F044009A36D0 /* BBTumblrConnection.m */; };
 		F2A9A41513D2F342009A36D0 /* BBTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = F2A9A41413D2F341009A36D0 /* BBTumblr.m */; };
 		F2B81EB913CD89BB000C287B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B81EB813CD89BB000C287B /* Cocoa.framework */; };
@@ -39,8 +39,6 @@
 		F2BE269513D0276800DB9FAA /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = F2BE266213D0276800DB9FAA /* NSString+URLEncoding.m */; };
 		F2BE269613D0276800DB9FAA /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = F2BE266413D0276800DB9FAA /* NSURL+Base.m */; };
 		F2BE269713D0276800DB9FAA /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = F2BE266613D0276800DB9FAA /* Base64Transcoder.c */; };
-		F2BE269813D0276800DB9FAA /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = F2BE266813D0276800DB9FAA /* hmac.c */; };
-		F2BE269913D0276800DB9FAA /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = F2BE266A13D0276800DB9FAA /* sha1.c */; };
 		F2BE269A13D0276800DB9FAA /* OAAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F2BE266D13D0276800DB9FAA /* OAAttachment.m */; };
 		F2BE269B13D0276800DB9FAA /* OACall.m in Sources */ = {isa = PBXBuildFile; fileRef = F2BE266F13D0276800DB9FAA /* OACall.m */; };
 		F2BE269C13D0276800DB9FAA /* OAConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = F2BE267113D0276800DB9FAA /* OAConsumer.m */; };
@@ -94,14 +92,14 @@
 		F29C930D13D116F8009CDA91 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		F29C930E13D116F8009CDA91 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		F29C930F13D116F8009CDA91 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		F29C931C13D11739009CDA91 /* BBTumblrRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTumblrRequest.h; sourceTree = "<group>"; };
-		F29C931D13D11739009CDA91 /* BBTumblrRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTumblrRequest.m; sourceTree = "<group>"; };
 		F29C931F13D13773009CDA91 /* BBTumblrVars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTumblrVars.h; sourceTree = "<group>"; };
 		F29C932013D13773009CDA91 /* BBTumblrVars.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTumblrVars.m; sourceTree = "<group>"; };
 		F29C932213D146D2009CDA91 /* NSString+Tumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tumblr.h"; sourceTree = "<group>"; };
 		F29C932313D146D2009CDA91 /* NSString+Tumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tumblr.m"; sourceTree = "<group>"; };
 		F29CEB4113D27744004936E3 /* BBError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBError.h; sourceTree = "<group>"; };
 		F29CEB4213D27744004936E3 /* BBError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBError.m; sourceTree = "<group>"; };
+		F2A98E4713D4312300718424 /* BBTumblrPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTumblrPost.h; sourceTree = "<group>"; };
+		F2A98E4813D4312300718424 /* BBTumblrPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTumblrPost.m; sourceTree = "<group>"; };
 		F2A9A41013D2F044009A36D0 /* BBTumblrConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTumblrConnection.h; sourceTree = "<group>"; };
 		F2A9A41113D2F044009A36D0 /* BBTumblrConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTumblrConnection.m; sourceTree = "<group>"; };
 		F2A9A41313D2F341009A36D0 /* BBTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTumblr.h; sourceTree = "<group>"; };
@@ -134,10 +132,6 @@
 		F2BE266413D0276800DB9FAA /* NSURL+Base.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Base.m"; sourceTree = "<group>"; };
 		F2BE266613D0276800DB9FAA /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
 		F2BE266713D0276800DB9FAA /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
-		F2BE266813D0276800DB9FAA /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
-		F2BE266913D0276800DB9FAA /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
-		F2BE266A13D0276800DB9FAA /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
-		F2BE266B13D0276800DB9FAA /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
 		F2BE266C13D0276800DB9FAA /* OAAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAAttachment.h; sourceTree = "<group>"; };
 		F2BE266D13D0276800DB9FAA /* OAAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAAttachment.m; sourceTree = "<group>"; };
 		F2BE266E13D0276800DB9FAA /* OACall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OACall.h; sourceTree = "<group>"; };
@@ -191,19 +185,18 @@
 		F29C92F313D0FFB6009CDA91 /* Tumblr */ = {
 			isa = PBXGroup;
 			children = (
+				F2A9A41313D2F341009A36D0 /* BBTumblr.h */,
+				F2A9A41413D2F341009A36D0 /* BBTumblr.m */,
+				F2A98E4713D4312300718424 /* BBTumblrPost.h */,
+				F2A98E4813D4312300718424 /* BBTumblrPost.m */,
 				F2A9A41013D2F044009A36D0 /* BBTumblrConnection.h */,
 				F2A9A41113D2F044009A36D0 /* BBTumblrConnection.m */,
 				F29C92F513D0FFD0009CDA91 /* BBTumblrDelegate.h */,
-				F29C931C13D11739009CDA91 /* BBTumblrRequest.h */,
-				F29C931D13D11739009CDA91 /* BBTumblrRequest.m */,
 				F29C931F13D13773009CDA91 /* BBTumblrVars.h */,
 				F29C932013D13773009CDA91 /* BBTumblrVars.m */,
-				F29C932213D146D2009CDA91 /* NSString+Tumblr.h */,
-				F29C932313D146D2009CDA91 /* NSString+Tumblr.m */,
 				F29CEB4113D27744004936E3 /* BBError.h */,
 				F29CEB4213D27744004936E3 /* BBError.m */,
-				F2A9A41313D2F341009A36D0 /* BBTumblr.h */,
-				F2A9A41413D2F341009A36D0 /* BBTumblr.m */,
+				F2A98E4613D430F100718424 /* Custom Addons */,
 			);
 			name = Tumblr;
 			sourceTree = "<group>";
@@ -238,6 +231,15 @@
 				F29C930F13D116F8009CDA91 /* SBJsonWriter.m */,
 			);
 			path = SBJson;
+			sourceTree = "<group>";
+		};
+		F2A98E4613D430F100718424 /* Custom Addons */ = {
+			isa = PBXGroup;
+			children = (
+				F29C932213D146D2009CDA91 /* NSString+Tumblr.h */,
+				F29C932313D146D2009CDA91 /* NSString+Tumblr.m */,
+			);
+			name = "Custom Addons";
 			sourceTree = "<group>";
 		};
 		F2B81EA913CD89BB000C287B = {
@@ -380,10 +382,6 @@
 			children = (
 				F2BE266613D0276800DB9FAA /* Base64Transcoder.c */,
 				F2BE266713D0276800DB9FAA /* Base64Transcoder.h */,
-				F2BE266813D0276800DB9FAA /* hmac.c */,
-				F2BE266913D0276800DB9FAA /* hmac.h */,
-				F2BE266A13D0276800DB9FAA /* sha1.c */,
-				F2BE266B13D0276800DB9FAA /* sha1.h */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -501,8 +499,6 @@
 				F2BE269513D0276800DB9FAA /* NSString+URLEncoding.m in Sources */,
 				F2BE269613D0276800DB9FAA /* NSURL+Base.m in Sources */,
 				F2BE269713D0276800DB9FAA /* Base64Transcoder.c in Sources */,
-				F2BE269813D0276800DB9FAA /* hmac.c in Sources */,
-				F2BE269913D0276800DB9FAA /* sha1.c in Sources */,
 				F2BE269A13D0276800DB9FAA /* OAAttachment.m in Sources */,
 				F2BE269B13D0276800DB9FAA /* OACall.m in Sources */,
 				F2BE269C13D0276800DB9FAA /* OAConsumer.m in Sources */,
@@ -527,12 +523,12 @@
 				F29C931913D116F8009CDA91 /* SBJsonTokeniser.m in Sources */,
 				F29C931A13D116F8009CDA91 /* SBJsonUTF8Stream.m in Sources */,
 				F29C931B13D116F8009CDA91 /* SBJsonWriter.m in Sources */,
-				F29C931E13D11739009CDA91 /* BBTumblrRequest.m in Sources */,
 				F29C932113D13773009CDA91 /* BBTumblrVars.m in Sources */,
 				F29C932413D146D2009CDA91 /* NSString+Tumblr.m in Sources */,
 				F29CEB4313D27744004936E3 /* BBError.m in Sources */,
 				F2A9A41213D2F044009A36D0 /* BBTumblrConnection.m in Sources */,
 				F2A9A41513D2F342009A36D0 /* BBTumblr.m in Sources */,
+				F2A98E4913D4312400718424 /* BBTumblrPost.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,9 @@ request=_request,
 response=_response, 
 receivedData=_receivedData, 
 identifier=_identifier, 
-requestType=_requestType;
+requestType=_requestType,
+wasSuccessful=_wasSuccessful,
+error=_error;
 
 + (id)tumblrConnection
 {
@@ -40,6 +42,7 @@ requestType=_requestType;
     [_response release], _response = nil;
     [_receivedData release], _receivedData = nil;
     [_identifier release], _identifier = nil;
+    [_error release], _error = nil;
     
     [super dealloc];
 }

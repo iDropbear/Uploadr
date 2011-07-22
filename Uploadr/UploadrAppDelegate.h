@@ -19,7 +19,4 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
-- (void)requestTokenTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-- (void)requestTokenTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
-
 @end

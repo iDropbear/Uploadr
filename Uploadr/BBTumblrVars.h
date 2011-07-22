@@ -43,7 +43,8 @@ typedef enum
     BBTumblrNewPost = 0,
     BBTumblrReblog,
     BBTumblrAvatar,
-    BBTumblrBlogInfo
+    BBTumblrBlogInfo,
+    BBTumblrRequestToken
 } BBTumblrRequestType;
 
 @interface BBTumblrVars : NSObject

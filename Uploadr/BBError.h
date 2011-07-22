@@ -9,17 +9,13 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BBError : NSObject {
+@interface BBError : NSError {
 @private
     NSString *_description;
-    NSInteger _code;
     Class _class;
 }
 
 @property (nonatomic, readwrite, copy) NSString *description;
-@property (nonatomic, readwrite, assign ) NSInteger code;
 @property (nonatomic, readwrite, assign ) Class ownerClass;
-
-+ (BBError *)errorWithDescription:(NSString *)desc andCode:(NSInteger)code andClass:(Class)ownerClass;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BBTumblrVars.h"
+#import "BBError.h"
 
 @interface BBTumblrConnection : NSObject {
 @private
@@ -18,6 +19,9 @@
     
     NSString *_identifier;
     
+    BOOL _wasSuccessful;
+    NSError *_error;
+    
     BBTumblrRequestType _requestType;
 }
 
@@ -27,7 +31,8 @@
 @property (nonatomic, readwrite, retain) NSMutableData *receivedData;
 @property (nonatomic, readwrite, copy) NSString *identifier;
 @property (nonatomic, readwrite, assign) BBTumblrRequestType requestType;
-
+@property (nonatomic, readwrite, assign) BOOL wasSuccessful;
+@property (nonatomic, readwrite, retain) NSError *error;
 
 + (id)tumblrConnection;
 

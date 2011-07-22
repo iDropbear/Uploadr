@@ -9,7 +9,6 @@
 #import "UploadrAppDelegate.h"
 #import "AuthCodes.h"
 #import "NSString+Tumblr.h"
-#import "BBTumblrRequest.h"
 #import "BBTumblr.h"
 #import "BBError.h"
 
@@ -65,10 +64,10 @@
     [tumblr setDelegate:self];
     [tumblr setHostname:@"fourdoublefiveone.tumblr.com"];
     //[tumblr requestBlogAvatar:nil withSize:BBTumblrAvatar128];
-    [tumblr requestBlogInfo:nil];
+    [tumblr requestTokenWithEmail:@"callum.james@live.com.au" Password:@"nom@d2906"];
 }
 
-- (void)tumblrRequest:(BBTumblr *)tumblr receivedAvatar:(NSImage *)avatar
+- (void)tumblrRequest:(NSString *)tumblr receivedAvatar:(NSImage *)avatar
 {
     NSImageView *img = [[NSImageView alloc] initWithFrame:(NSRect){{10,128},{128,128}}];
     [img setImage:avatar];
@@ -76,59 +75,38 @@
     [[window contentView] addSubview:img];
 }
 
-- (void)tumblrRequest:(BBTumblr *)tumblr receivedResponse:(NSURLResponse *)response
+- (void)tumblrRequest:(NSString *)identifier receivedResponse:(NSURLResponse *)response
 {
     NSLog( @"%lu", [(NSHTTPURLResponse *)response statusCode] );
 }
 
-- (void)tumblrRequest:(BBTumblr *)tumblr didFailWithError:(BBError *)error
+- (void)tumblrRequest:(NSString *)identifier didFailWithError:(NSError *)error
 {
-    NSLog( @"%@", [error description] );
+    NSLog( @"%@", error );
 }
 
-- (void)tumblrRequest:(BBTumblr *)tumblr receivedBlogInfo:(NSDictionary *)dictionary
+- (void)tumblrRequest:(NSString *)identifier receivedBlogInfo:(NSDictionary *)dictionary
 {
     NSLog( @"%@", dictionary );
 }
 
-- (void)fail:(OAServiceTicket *)ticket data:(NSData *)data
+- (void)tumblrRequestUserAuthenticated:(NSString *)identifier
 {
-    NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    NSLog( @"FAIL - %@", dataString );
+    NSLog( @"User authenticated" );
+    
+    BBTumblr *tumblr = [BBTumblr sharedInstance];
+    
+    BBTumblrPost *post = [BBTumblrPost newPostWithType:BBTumblrPostText];
+    [post setType:BBTumblrPostText];
+    [post setTitle:@"This is not a title..."];
+    [post setBody:@"I am a fat body full of body'ness....."];
+    
+    [tumblr createPost:post];
 }
 
-- (void)_setAccessToken:(OAServiceTicket *)ticket withData:(NSData *)data
+- (void)tumblrRequest:(NSString *)identifier newPostCreated:(NSInteger)postID
 {
-    NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    
-    OAToken *token = [[OAToken alloc] initWithHTTPResponseBody:dataString];
-    
-    NSLog( @"SUCCESS - token: %@ \n token_secret: %@", token.key, token.secret );
-    
-    OAConsumer *consumer = [[[OAConsumer alloc] initWithKey:@"aITAmWfUm6AYvOtv7egIJ3G7oEjdvBNLEebfoRfppk8U6dFTAZ" 
-                                                     secret:@"ctNO0ChdvC3o089OVYAjrpQqSEFYSOFm959KTIbAiVGuyTaYQw"] autorelease];
-    
-    BBTumblrRequest *post = [[BBTumblrRequest alloc] initNewPostWithBlog:@"cokebongsandsingalongs.tumblr.com" Type:BBTumblrPostText];
-    [post setTitle:@"I am the title, hear me roaw"];
-    [post setBody:@"I not a body, i'm the booooody"];
-    OAMutableURLRequest *request = [post generateRequest:consumer token:token];
-    
-    
-    OADataFetcher *fetcher = [[[OADataFetcher alloc] init] autorelease];
-    [fetcher fetchDataWithRequest:request 
-                         delegate:self 
-                didFinishSelector:@selector(_postSent:withData:) 
-                  didFailSelector:@selector(_fail:data:)];
-    
-}
-
-- (void)_postSent:(OAServiceTicket *)ticket withData:(NSData *)data
-{
-    NSString *dataString = [NSString stringWithData:data encoding:NSUTF8StringEncoding];
-    
-    id value = [dataString JSONValue];
-    
-    NSLog( @"POSTED - %@", [value allKeys] );
+    NSLog( @"New Post Created: %lu", postID );
 }
 
 @end
