@@ -7,7 +7,6 @@
 //
 
 #import "UploadrAppDelegate.h"
-#import "AuthCodes.h"
 #import "NSString+Tumblr.h"
 #import "BBTumblr.h"
 #import "BBError.h"

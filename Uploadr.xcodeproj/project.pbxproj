@@ -123,7 +123,6 @@
 		F2B81EDF13CD89BB000C287B /* UploadrTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UploadrTests-Prefix.pch"; sourceTree = "<group>"; };
 		F2B81EE013CD89BB000C287B /* UploadrTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadrTests.h; sourceTree = "<group>"; };
 		F2B81EE213CD89BB000C287B /* UploadrTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadrTests.m; sourceTree = "<group>"; };
-		F2B81EEC13CD8C8C000C287B /* AuthCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthCodes.h; sourceTree = "<group>"; };
 		F2BE265F13D0276800DB9FAA /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		F2BE266013D0276800DB9FAA /* NSMutableURLRequest+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+Parameters.m"; sourceTree = "<group>"; };
 		F2BE266113D0276800DB9FAA /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -287,7 +286,6 @@
 				F29C92F613D116F8009CDA91 /* SBJson */,
 				F29C92F313D0FFB6009CDA91 /* Tumblr */,
 				F2BE264513D0276800DB9FAA /* oauthconsumer */,
-				F2B81EEC13CD8C8C000C287B /* AuthCodes.h */,
 				F2B81ECA13CD89BB000C287B /* UploadrAppDelegate.h */,
 				F2B81ECB13CD89BB000C287B /* UploadrAppDelegate.m */,
 				F2B81ECD13CD89BB000C287B /* MainMenu.xib */,
